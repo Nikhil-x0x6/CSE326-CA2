@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LimeBite — Fresh Food Delivery</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  
+  <input type="checkbox" id="cart-toggle" class="toggle" />
+  <input type="checkbox" id="add-toggle" class="toggle" />
+  <input type="checkbox" id="pay-toggle" class="toggle" />
+
+  
+  <header>
+    <div class="logo">🍋 LimeBite</div>
+    <div class="actions">
+      <label for="add-toggle" class="btn btn-outline">+ Add Food</label>
+      <label for="cart-toggle" class="btn btn-primary">🛒 Cart (<span id="badge">0</span>)</label>
+    </div>
+  </header>
+
+  
+  <main>
+    <section class="hero">
+      <h1>Zesty &amp; Fresh, Delivered Fast.</h1>
+      <p>Healthy bowls, gourmet wraps, and fresh drinks in a vibrant lime-powered experience.</p>
+      <div class="filters" id="filters">
+        <button class="chip active" data-cat="All">All</button>
+        <button class="chip" data-cat="Bowls">Bowls</button>
+        <button class="chip" data-cat="Mains">Mains</button>
+        <button class="chip" data-cat="Sides">Sides</button>
+        <button class="chip" data-cat="Drinks">Drinks</button>
+      </div>
+    </section>
+
+    
+    <section class="grid" id="menu"></section>
+  </main>
+
+ 
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  
+  <label for="cart-toggle" class="backdrop cart-bg"></label>
+  <aside class="drawer">
+    <div class="drawer-head">
+      <h2>Your Cart</h2>
+      <label for="cart-toggle" class="close">✕</label>
+    </div>
+    <div class="cart-list" id="cart-items"></div>
+    <div class="drawer-foot">
+      <div class="row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+      <div class="row"><span>Delivery</span><span id="delivery">₹49</span></div>
+      <div class="row total"><span>Total</span><span id="total">₹0</span></div>
+      <button class="btn btn-primary full" id="checkout-btn" disabled>Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  
+  <label for="add-toggle" class="backdrop add-bg"></label>
+  <div class="modal add-modal">
+    <div class="modal-head">
+      <h2>Add New Dish</h2>
+      <label for="add-toggle" class="close">✕</label>
+    </div>
+    <form id="add-form">
+      <input type="text" id="f-name" placeholder="Dish Name (e.g., Avocado Salad)" required />
+      <div class="split">
+        <input type="number" id="f-price" placeholder="Price (₹)" step="1" min="10" required />
+        <select id="f-cat">
+          <option value="Bowls">Bowls</option>
+          <option value="Mains">Mains</option>
+          <option value="Sides">Sides</option>
+          <option value="Drinks">Drinks</option>
+        </select>
+      </div>
+      <input type="text" id="f-icon" placeholder="Emoji or Image URL (e.g., 🥑)" value="🥗" required />
+      <input type="text" id="f-desc" placeholder="Short description" required />
+      <button type="submit" class="btn btn-primary full">Save to Menu</button>
+    </form>
+  </div>
+
+  
+  <label for="pay-toggle" class="backdrop pay-bg"></label>
+  <div class="modal pay-modal">
+    <div class="modal-head">
+      <h2>🔒 LimePay Gateway</h2>
+      <label for="pay-toggle" class="close">✕</label>
+    </div>
+
+    <div id="pay-form-wrap">
+      <div class="pay-amount">Amount Payable: <strong id="pay-total">₹0</strong></div>
+
+      <!-- Pure CSS Payment Tabs -->
+      <input type="radio" name="pm" id="pm-card" class="toggle" checked />
+      <input type="radio" name="pm" id="pm-upi" class="toggle" />
+      <input type="radio" name="pm" id="pm-cod" class="toggle" />
+
+      <div class="tabs">
+        <label for="pm-card">💳 Card</label>
+        <label for="pm-upi">📱 UPI</label>
+        <label for="pm-cod">💵 Cash</label>
+      </div>
+
+      <form id="pay-form">
+        <div class="tab-panel p-card">
+          <input type="text" placeholder="Cardholder Name" />
+          <input type="text" placeholder="Card Number (•••• •••• •••• 4242)" maxlength="19" />
+          <div class="split">
+            <input type="text" placeholder="MM/YY" maxlength="5" />
+            <input type="password" placeholder="CVV" maxlength="3" />
+          </div>
+        </div>
+        <div class="tab-panel p-upi">
+          <input type="text" placeholder="Enter UPI ID (e.g., name@upi)" />
+          <p class="hint">Instant approval via any UPI app.</p>
+        </div>
+        <div class="tab-panel p-cod">
+          <p class="hint">Pay with cash or QR at your doorstep upon delivery.</p>
+        </div>
+        <button type="submit" class="btn btn-primary full">Pay Now</button>
+      </form>
+    </div>
+
+    <!-- Order Confirmation Screen -->
+    <div id="pay-success" class="success hidden">
+      <div class="check">✔</div>
+      <h3>Order Confirmed!</h3>
+      <p>Your fresh LimeBite meal is being prepared.</p>
+      <label for="pay-toggle" class="btn btn-primary full" id="done-btn">Back to Menu</label>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
